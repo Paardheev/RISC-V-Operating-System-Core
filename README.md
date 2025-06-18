@@ -1,15 +1,15 @@
-# RISC-V Systems Programming Lab
+# RISC-V Systems Programming Project
 
-This repository contains a series of hands-on lab assignments designed to build a deep understanding of low-level systems programming on the RISC-V architecture. The labs involve direct manipulation of hardware-level constructs, with implementations in RISC-V assembly and C, focused on core operating system mechanisms.
+This repository showcases a bare-metal systems programming project targeting the RISC-V architecture. It involves implementing foundational components of an operating system from scratch using RISC-V assembly and C. The goal of the project is to build a working prototype of core OS mechanisms, emphasizing direct interaction with hardware-level features and the RISC-V privilege architecture.
 
-The project covers topics such as privilege level management, timer-driven multitasking, virtual memory via Sv39 paging, and custom trap handling for page faults—all implemented in a bare-metal environment without any operating system support.
+Key features include privilege mode transitions, timer-based multitasking, Sv39-based virtual memory management, and trap handling for instruction/data page faults.
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)  
-- [Lab Modules](#lab-modules)  
+- [Project Components](#project-components)  
 - [Technologies Used](#technologies-used)  
 - [Setup and Usage](#setup-and-usage)
 
@@ -17,44 +17,44 @@ The project covers topics such as privilege level management, timer-driven multi
 
 ## Overview
 
-These labs emphasize practical exploration of RISC-V system-level features by interacting with:
+This project explores core systems programming principles by leveraging the RISC-V ISA in a bare-metal environment. It involves working closely with:
 
 - Control and Status Registers (CSRs)
 - Memory-mapped I/O
-- Privilege specification and trap handling
-- Low-level stack and interrupt control
+- Privilege specifications and exception handling
+- Low-level stack and interrupt handling
 
-Concepts implemented include:
+Major concepts implemented:
 
-- Transitions between Machine, Supervisor, and User privilege modes  
-- Timer interrupts and cooperative context switching  
-- Virtual memory management using Sv39 page tables  
-- Dynamic instruction/data page fault handling  
-- Interfacing between RISC-V assembly and C
+- Mode transitions between Machine, Supervisor, and User modes  
+- Timer-driven cooperative multitasking via context switching  
+- Virtual memory using Sv39 paging and hierarchical page tables  
+- Page fault detection, resolution, and dynamic page mapping  
+- Interoperability between RISC-V assembly and C functions
 
 ---
 
-## Lab Modules
+## Project Components
 
-### Lab 4: C and Assembly Interfacing
-- Established bidirectional function calls between C and RISC-V assembly
-- Demonstrated manual memory access and string handling across language boundaries
+### C and Assembly Interfacing
+- Enabled seamless function calls between C and RISC-V assembly
+- Managed low-level memory access and data sharing between both languages
 
-### Lab 5: Privilege Switching
-- Controlled transitions between Machine, Supervisor, and User modes
-- Implemented basic exception and trap handling using CSRs
+### Privilege Mode Management
+- Handled safe transitions between Machine, Supervisor, and User modes
+- Developed basic exception/trap handlers using CSRs
 
-### Lab 6: Timer-Based Multitasking
-- Enabled timer interrupts to simulate cooperative multitasking
-- Designed a context switch mechanism to save and restore task state
+### Timer-Driven Multitasking
+- Configured timer interrupts to simulate cooperative multitasking
+- Implemented a context switch routine to preserve and restore CPU state
 
-### Lab 7: Virtual Memory with Sv39
-- Configured multi-level Sv39 page tables for virtual address translation
-- Transitioned to user-mode execution using mapped virtual addresses
+### Sv39-Based Virtual Memory
+- Constructed multi-level page tables for virtual address translation using Sv39
+- Executed code in User mode mapped to virtual addresses
 
-### Lab 8: Page Fault Handling
-- Implemented trap handlers for detecting and resolving page faults
-- Dynamically updated page tables and loaded memory pages on demand
+### Page Fault Handling
+- Wrote trap handlers for managing instruction and data page faults
+- Dynamically loaded memory pages and updated page tables on-the-fly
 
 ---
 
@@ -64,7 +64,7 @@ Concepts implemented include:
 - **RISC-V Assembly** and **C**  
 - **Spike** – RISC-V ISA Simulator  
 - **GNU Toolchain** – `riscv64-unknown-elf-gcc`, `objdump`  
-- **Bare-metal Development** – No operating system or runtime library  
+- **Bare-metal Environment** – No operating system, no runtime dependencies
 
 ---
 
@@ -72,7 +72,7 @@ Concepts implemented include:
 
 ### Prerequisites
 
-Ensure the following tools are installed:
+Ensure the following tools are installed and available in your system `PATH`:
 
 - RISC-V GCC Toolchain: [`riscv64-unknown-elf-gcc`](https://github.com/riscv-collab/riscv-gnu-toolchain)  
 - Spike Simulator: [`spike`](https://github.com/riscv/riscv-isa-sim)  
@@ -80,8 +80,8 @@ Ensure the following tools are installed:
 ### Compilation and Execution
 
 ```bash
-# Compile the lab file (replace labX.S with the appropriate lab)
-riscv64-unknown-elf-gcc -nostartfiles -T linker.ld labX.S -o labX.out
+# Compile the source file (e.g., main.S)
+riscv64-unknown-elf-gcc -nostartfiles -T linker.ld main.S -o main.out
 
-# Run in Spike simulator with debug mode
-spike -d labX.out
+# Run using the Spike simulator with debugging enabled
+spike -d main.out
